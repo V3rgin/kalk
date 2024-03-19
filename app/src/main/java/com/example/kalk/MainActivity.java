@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                text.append("0");
+                text.append("-");
             }
 
         });
