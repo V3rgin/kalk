@@ -9,19 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-public class MainActivity extends AppCompatActivity {
 
-    public static void setTimeout(Runnable runnable, int delay){
-        new Thread(() -> {
-            try {
-                Thread.sleep(delay);
-                runnable.run();
-            }
-            catch (Exception e){
-                System.err.println(e);
-            }
-        }).start();
-    }
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class MainActivity extends AppCompatActivity {
 
     public static double eval(final String str) {
         return new Object() {
@@ -130,12 +122,62 @@ public class MainActivity extends AppCompatActivity {
         Button eq = findViewById(R.id.eq);
         Button c = findViewById(R.id.clear);
         TextView text = findViewById(R.id.textview);
+        TextView error = findViewById(R.id.error);
+
+
+        btn1.setBackgroundColor(getResources().getColor(R.color.black));
+        btn1.setTextColor(getResources().getColor(R.color.white));
+
+        btn2.setBackgroundColor(getResources().getColor(R.color.black));
+        btn2.setTextColor(getResources().getColor(R.color.white));
+
+        btn3.setBackgroundColor(getResources().getColor(R.color.black));
+        btn3.setTextColor(getResources().getColor(R.color.white));
+
+        btn4.setBackgroundColor(getResources().getColor(R.color.black));
+        btn4.setTextColor(getResources().getColor(R.color.white));
+
+        btn5.setBackgroundColor(getResources().getColor(R.color.black));
+        btn5.setTextColor(getResources().getColor(R.color.white));
+
+        btn6.setBackgroundColor(getResources().getColor(R.color.black));
+        btn6.setTextColor(getResources().getColor(R.color.white));
+
+        btn7.setBackgroundColor(getResources().getColor(R.color.black));
+        btn7.setTextColor(getResources().getColor(R.color.white));
+
+        btn8.setBackgroundColor(getResources().getColor(R.color.black));
+        btn8.setTextColor(getResources().getColor(R.color.white));
+
+        btn9.setBackgroundColor(getResources().getColor(R.color.black));
+        btn9.setTextColor(getResources().getColor(R.color.white));
+
+        btn0.setBackgroundColor(getResources().getColor(R.color.black));
+        btn0.setTextColor(getResources().getColor(R.color.white));
+
+        sub.setBackgroundColor(getResources().getColor(R.color.black));
+        sub.setTextColor(getResources().getColor(R.color.white));
+
+        div.setBackgroundColor(getResources().getColor(R.color.black));
+        div.setTextColor(getResources().getColor(R.color.white));
+
+        add.setBackgroundColor(getResources().getColor(R.color.black));
+        add.setTextColor(getResources().getColor(R.color.white));
+
+        mul.setBackgroundColor(getResources().getColor(R.color.black));
+        mul.setTextColor(getResources().getColor(R.color.white));
+
+        eq.setBackgroundColor(getResources().getColor(R.color.black));
+        eq.setTextColor(getResources().getColor(R.color.white));
+
+        c.setBackgroundColor(getResources().getColor(R.color.black));
+        c.setTextColor(getResources().getColor(R.color.red));
 
         btn0.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                text.append("-");
+                text.append("0");
             }
 
         });
@@ -155,22 +197,30 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String textData = text.getText().toString();
                 try {
-                    text.setText(String.valueOf(eval(textData)));
+                    text.setText(String.valueOf(eval((textData))));
+                    error.setText("");
+                    String regex1 = "\\b\\d+\\s*/\\s*0(\\.0*)?\\b";
+                    Pattern pattern = Pattern.compile(regex1);
+
+                    for (int i = 0; i < 1; i++) {
+                        String testCase = textData;
+                        Matcher matcher = pattern.matcher(testCase);
+                        if (matcher.find()) {
+                            text.setText("nie mozna dzielic przez 0");
+                        }
+                    }
                 }
                 catch (Exception e){
-                    text.setText("error: " + e.toString());
-                    setTimeout(() -> {
-                        text.setText("");
-                    }, 10);
+                        error.setText("error");
                 }
             }
-
         });
         btn1.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 text.append("1");
+                error.setText("");
             }
 
         });
@@ -179,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 text.append("2");
+                error.setText("");
             }
 
         });
@@ -187,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 text.append("3");
+                error.setText("");
             }
 
         });
@@ -195,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 text.append("4");
+                error.setText("");
             }
 
         });
@@ -203,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 text.append("5");
+                error.setText("");
             }
 
         });
@@ -211,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 text.append("6");
+                error.setText("");
             }
 
         });
@@ -219,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 text.append("7");
+                error.setText("");
             }
 
         });
@@ -227,6 +283,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 text.append("8");
+                error.setText("");
             }
 
         });
@@ -235,6 +292,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 text.append("9");
+                error.setText("");
             }
 
         });
@@ -243,6 +301,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 text.append("/");
+                error.setText("");
             }
 
         });
@@ -251,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 text.append("*");
+                error.setText("");
             }
 
         });
@@ -259,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 text.append("+");
+                error.setText("");
             }
 
         });
@@ -267,6 +328,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 text.append("-");
+                error.setText("");
             }
 
         });
