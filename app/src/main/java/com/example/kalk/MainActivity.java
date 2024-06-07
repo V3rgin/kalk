@@ -206,7 +206,8 @@ public class MainActivity extends AppCompatActivity {
                         String testCase = textData;
                         Matcher matcher = pattern.matcher(testCase);
                         if (matcher.find()) {
-                            text.setText("nie mozna dzielic przez 0");
+                            error.setText("nie mozna dzielic przez 0");
+                            text.setText("");
                         }
                     }
                 }
